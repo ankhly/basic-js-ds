@@ -1,18 +1,11 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
-// const { Node } = require('../extensions/list-tree.js');
+const { Node } = require('../extensions/list-tree.js');
 
 /**
 * Implement simple binary search tree according to task description
 * using Node from extensions
 */
-class Node {
-	constructor(value) {
-		this.value = value;
-		this.left = null;
-		this.right = null;
-	}
-}
 
 class BinarySearchTree {
 	constructor() {
@@ -20,78 +13,77 @@ class BinarySearchTree {
 	}
 	root() {
 		return this.rootTree;
-
 	}
 
-	add(value) {
-		this.rootTree = add(this.rootTree, value)
-		function add(node, value) {
+	add(data) {
+		this.rootTree = add(this.rootTree, data)
+		function add(node, data) {
 			if (!node) {
-				return new Node(value);
+				return new Node(data);
 			}
-			if (node.value === value) {
+			if (node.data === data) {
 				return node;
 			}
-			if (value < node.value) {
-				node.left = add(node.left, value)
+			if (data < node.data) {
+				node.left = add(node.left, data)
 			} else {
-				node.right = add(node.right, value)
+				node.right = add(node.right, data)
 			}
 			return node;
 		}
-		//	throw new NotImplementedError('Not implemented');
+		//throw new NotImplementedError('Not implemented');
 		// remove line with error and write your code here
 	}
 
-	has(value) {
-		return search(this.rootTree, value);
-		function search(node, value) {
+	has(data) {
+		return search(this.rootTree, data);
+		function search(node, data) {
 			if (!node) {
 				return false;
 			}
-			if (node.value === value) {
+			if (node.data === data) {
 				return true;
 			}
-			if (value < node.value) {
-				return search(node.left, value);
+			if (data < node.data) {
+				return search(node.left, data);
 			} else {
-				return search(node.right, value);
+				return search(node.right, data);
 			}
 		}
 		//throw new NotImplementedError('Not implemented');
 		// remove line with error and write your code here
 	}
 
-	find(value) {
-		return search(this.rootTree, value);
-		function search(node, value) {
+	find(data) {
+		return searchF(this.rootTree, data);
+		function searchF(node, data) {
 			if (!node) {
 				return null;
 			}
-			if (node.value === value) {
-				return true;
+			if (node.data === data) {
+				return node;
 			}
-			if (value < node.value) {
-				return search(node.left, value);
+			if (data < node.data) {
+				return searchF(node.left, data);
 			} else {
-				return search(node.right, value);
+				return searchF(node.right, data);
 			}
 		}
-		//	throw new NotImplementedError('Not implemented');
+		//throw new NotImplementedError('Not implemented');
 		// remove line with error and write your code here
 	}
 
-	remove(value) {
-		this.rootTree = rem(this.rootTree, value)
-		function rem(node, value) {
+	remove(data) {
+		this.rootTree = rem(this.rootTree, data)
+		function rem(node, data) {
 			if (!node) {
 				return null;
 			}
-			if (value < node.value) {
-				node.left = rem(node.left, value);
+			if (data < node.data) {
+				node.left = rem(node.left, data);
 				return node;
-			} else if (value > node.value) {
-				node.right = rem(node.right, value);
+			} else if (data > node.data) {
+				node.right = rem(node.right, data);
 				return node;
 			} else {
 				if (!node.left && !node.right) {
@@ -109,8 +101,8 @@ class BinarySearchTree {
 				while (minRight.left) {
 					minRight = minRight.left;
 				}
-				node.value = minRight.value;
-				node.right = rem(node.right, minRight.value);
+				node.data = minRight.data;
+				node.right = rem(node.right, minRight.data);
 				return node;
 			}
 		}
@@ -126,7 +118,7 @@ class BinarySearchTree {
 		while (node.left) {
 			node = node.left;
 		}
-		return node.value;
+		return node.data;
 		//throw new NotImplementedError('Not implemented');
 		// remove line with error and write your code here
 	}
@@ -139,7 +131,7 @@ class BinarySearchTree {
 		while (node.right) {
 			node = node.right;
 		}
-		return node.value;
+		return node.data;
 		//throw new NotImplementedError('Not implemented');
 		// remove line with error and write your code here
 	}
